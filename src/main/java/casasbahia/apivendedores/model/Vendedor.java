@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -42,7 +43,10 @@ public class Vendedor {
     private TipoContratacao tipoContratacao;
 
     @NotNull
-    private String filial;
+    private String filial;/*
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "filial_id")
+    private Filial filial;*/
 
     public boolean validarDocumento() {
         if (tipoContratacao == TipoContratacao.CLT || tipoContratacao == TipoContratacao.OUTSOURCING) {

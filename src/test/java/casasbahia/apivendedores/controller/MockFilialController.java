@@ -15,7 +15,7 @@ import casasbahia.apivendedores.model.Filial;
 public class MockFilialController {
 
     @GetMapping("/{id}")
-    public ResponseEntity<Filial> getFilial(@PathVariable String id) {
+    public ResponseEntity<Filial> getFilial(@PathVariable Long id) {
         Filial mockFilial = new Filial(
                 id,
                 "Filial Teste",

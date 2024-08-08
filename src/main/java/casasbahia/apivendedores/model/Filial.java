@@ -2,8 +2,18 @@ package casasbahia.apivendedores.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+@Entity
+
 public class Filial {
-    private String id;
+    /*private String id;
     private String nome;
     private String cnpj;
     private String cidade;
@@ -11,12 +21,41 @@ public class Filial {
     private String tipo;
     private boolean ativo;
     private LocalDate dataCadastro;
+    private LocalDate ultimaAtualizacao;*/
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Size(min = 2, message = "Nome da filial deve ter pelo menos 2 caracteres")
+    private String nome;
+
+    @NotNull
+    @Pattern(regexp = "\\d{14}", message = "CNPJ inválido")
+    private String cnpj;
+
+    @NotNull
+    @Size(min = 2, message = "Cidade deve ter pelo menos 2 caracteres")
+    private String cidade;
+
+    @NotNull
+    @Size(min = 2, max = 2, message = "UF deve ter 2 caracteres")
+    private String uf;
+
+    @NotNull
+    private String tipo;
+
+    @NotNull
+    private boolean ativo;
+
+    private LocalDate dataCadastro;
     private LocalDate ultimaAtualizacao;
 
     // Construtores
     public Filial() {}
 
-    public Filial(String id, String nome, String cnpj, String cidade, String uf, String tipo, boolean ativo, LocalDate dataCadastro, LocalDate ultimaAtualizacao) {
+    public Filial(Long id, String nome, String cnpj, String cidade, String uf, String tipo, boolean ativo, LocalDate dataCadastro, LocalDate ultimaAtualizacao) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -29,11 +68,11 @@ public class Filial {
     }
 
     // Getters e Setters
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

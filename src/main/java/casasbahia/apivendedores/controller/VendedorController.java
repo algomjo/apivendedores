@@ -3,6 +3,7 @@ package casasbahia.apivendedores.controller;
 import casasbahia.apivendedores.model.Vendedor;
 import casasbahia.apivendedores.service.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,17 @@ public class VendedorController {
                        .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Vendedor createVendedor(@Validated @RequestBody Vendedor vendedor) {
-        return vendedorService.save(vendedor);
+    @PostMapping("/create")
+    public ResponseEntity<Vendedor> createVendedor(@Validated @RequestBody Vendedor vendedor) {
+     Vendedor savedVendedor = vendedorService.save(vendedor); // Salva o vendedor e armazena o resultado
+    return ResponseEntity
+            .status(HttpStatus.CREATED) // Retorna o status 201
+            .body(savedVendedor);
     }
 
-    @PutMapping("/{id}")
+
+
+    @PutMapping("/update/{id}")
     public ResponseEntity<Vendedor> updateVendedor(@PathVariable Long id, @Validated @RequestBody Vendedor vendedorDetails) {
         Optional<Vendedor> vendedor = vendedorService.findById(id);
         if (vendedor.isPresent()) {
@@ -51,7 +57,7 @@ public class VendedorController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteVendedor(@PathVariable Long id) {
         if (vendedorService.findById(id).isPresent()) {
             vendedorService.deleteById(id);

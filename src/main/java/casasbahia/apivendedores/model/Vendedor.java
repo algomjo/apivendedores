@@ -19,7 +19,7 @@ public class Vendedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotNull
+    @NotNull
     @Pattern(regexp = "\\d{8}-\\b(OUT|CLT|PJ)\\b", message = "Matrícula deve seguir o padrão 98767367-OUT, 98767367-CLT ou 98767367-PJ")
     private String matricula;
 

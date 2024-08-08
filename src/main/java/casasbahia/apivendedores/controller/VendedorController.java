@@ -11,9 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/vendedores")
 public class VendedorController {
+
+    private static final Logger logger = LoggerFactory.getLogger(VendedorController.class);
+
 
     @Autowired
     private VendedorService vendedorService;
@@ -32,7 +38,8 @@ public class VendedorController {
 
     @PostMapping("/create")
     public ResponseEntity<Vendedor> createVendedor(@Validated @RequestBody Vendedor vendedor) {
-     Vendedor savedVendedor = vendedorService.save(vendedor); // Salva o vendedor e armazena o resultado
+    logger.info("Criando vendedor: {}", vendedor);    
+    Vendedor savedVendedor = vendedorService.save(vendedor); // Salva o vendedor e armazena o resultado
     return ResponseEntity
             .status(HttpStatus.CREATED) // Retorna o status 201
             .body(savedVendedor);
@@ -42,6 +49,7 @@ public class VendedorController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Vendedor> updateVendedor(@PathVariable Long id, @Validated @RequestBody Vendedor vendedorDetails) {
+        logger.info("Atualizando vendedor: {}", vendedorDetails);    
         Optional<Vendedor> vendedor = vendedorService.findById(id);
         if (vendedor.isPresent()) {
             Vendedor updatedVendedor = vendedor.get();

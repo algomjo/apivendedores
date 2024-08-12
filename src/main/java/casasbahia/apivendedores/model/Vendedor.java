@@ -43,10 +43,7 @@ public class Vendedor {
     private TipoContratacao tipoContratacao;
 
     @NotNull
-    private String filial;/*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filial_id")
-    private Filial filial;*/
+    private String filial;
 
     public boolean validarDocumento() {
         if (tipoContratacao == TipoContratacao.CLT || tipoContratacao == TipoContratacao.OUTSOURCING) {
